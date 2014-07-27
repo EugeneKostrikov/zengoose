@@ -1,6 +1,6 @@
 {
   "name": "zengoose",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Easy mongoose connection management",
   "main": "index.js",
   "scripts": {

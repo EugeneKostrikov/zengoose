@@ -8,7 +8,7 @@ var Keeper = require('../lib/keeper');
 describe('Keeper base class', function(){
   var schema = new Schema({path: String});
   var keeper = new Keeper('mongodb://127.0.0.1:27017/zengoose_test');
-  keeper.addSchema('test', schema);
+  keeper.addSchema('test', 'test', schema);
   it('should be able to emit and listen to events', function(done){
     keeper.on('testEvent', function(arg){
       arg.should.equal('hello');
@@ -32,7 +32,7 @@ describe('Keeper base class', function(){
     });
   });
   it('should be able to recompile all models under connection it is responsible for', function(done){
-    keeper.addSchema('second', new Schema({path: String}));
+    keeper.addSchema('second', 'second', new Schema({path: String}));
     should.exist(keeper.connection.models.test);
     should.not.exist(keeper.connection.models.second);
     keeper.compile(function(err, connection){
@@ -46,7 +46,7 @@ describe('Keeper base class', function(){
       var schema = new Schema({path: String});
       callback(null, schema);
     }
-    keeper.addSchema('async', {}, getter);
+    keeper.addSchema('async', 'async', {}, getter);
     keeper.compile(function(err, connection){
       should.not.exist(err);
       var models = connection.models;
@@ -61,7 +61,7 @@ describe('Keeper base class', function(){
     keeper.on('error', function(err){
       should.exist(err);
     });
-    keeper.addSchema('errored', {}, getter);
+    keeper.addSchema('errored', 'errored', {}, getter);
     keeper.compile(function(err, connection){
       should.not.exist(err);
       should.exist(connection);

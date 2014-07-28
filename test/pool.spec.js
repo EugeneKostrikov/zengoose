@@ -10,7 +10,7 @@ describe('Connection pool', function(){
   var pool = new Pool(0);
   var schema = new Schema({path: String});
   var keeper = new Keeper('mongodb://127.0.0.1:27017/zengoose_test');
-  keeper.addSchema('test', schema);
+  keeper.addSchema('test', 'test', schema);
   beforeEach(function(done){
     keeper.compile(done);
   });
